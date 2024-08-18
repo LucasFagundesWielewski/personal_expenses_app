@@ -45,7 +45,7 @@ class _TransactionUserState extends State<TransactionUser> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         TransactionList(_transactions),
-        TransactionForm(),
+        TransactionForm(_addTransaction),
       ],
     );
   }
