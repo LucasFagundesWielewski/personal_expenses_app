@@ -14,10 +14,25 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
+        textTheme: ThemeData.light().textTheme.copyWith(
+          titleLarge: const TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+          titleMedium: TextStyle(
+            color: Colors.grey[800],
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        fontFamily: 'Quicksand',
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple).copyWith(secondary: Colors.purple),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.deepPurple,
           titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
             fontWeight: FontWeight.bold,
             fontSize: 20,
             color: Colors.white,
@@ -35,18 +50,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Novo Tênis de Corrida',
-      amount: 310.76,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Conta água',
-      amount: 110.16,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'Novo Tênis de Corrida',
+    //   amount: 310.76,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Conta água',
+    //   amount: 110.16,
+    //   date: DateTime.now(),
+    // ),
   ];
 
   void _addTransaction(String title, double amount) {
@@ -77,7 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Despesas Pessoais'),
+        title: const Text(
+          'Despesas Pessoais',
+          style: TextStyle(
+            fontFamily: 'OpenSans', 
+          ),
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
@@ -89,11 +109,16 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+          const SizedBox(height: 8),
           const SizedBox(
+            
             child: Card(
+              
               color: Colors.deepPurpleAccent, 
               elevation: 5,
+              
               child: Center(
+                
                 child: Text(
                   'Gráfico',
                   style: TextStyle(
