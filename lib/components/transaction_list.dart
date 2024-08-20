@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 
 class TransactionList extends StatefulWidget {
   final List<Transaction> transactions;
+  final void Function(String) onRemove;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.onRemove);
 
   @override
   _TransactionListState createState() => _TransactionListState();
@@ -46,14 +47,9 @@ class _TransactionListState extends State<TransactionList> with SingleTickerProv
           AnimatedBuilder(
             animation: _animation,
             builder: (ctx, child) {
-              return Column(
-                children: [
-                  Transform.scale(
-                    scale: _animation.value,
-                    child: child,
-                  ),
-                  
-                ],
+              return Transform.scale(
+                scale: _animation.value,
+                child: child,
               );
             },
             child: Container(
@@ -64,51 +60,39 @@ class _TransactionListState extends State<TransactionList> with SingleTickerProv
               ),
             ),
           ),
-        ],):
-        ListView.builder(
+        ],
+      ) : ListView.builder(
         itemCount: widget.transactions.length,
         itemBuilder: (ctx, index) {
           final tr = widget.transactions[index];
           return Card(
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).primaryColor,
-                      width: 2,
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    'R\$ ${tr.amount.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Theme.of(context).primaryColor,
-                    ),
+            elevation: 5,
+            margin: const EdgeInsets.symmetric(
+              vertical: 8,
+              horizontal: 5,
+            ),
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: 30,
+                child: Padding(
+                  padding: const EdgeInsets.all(6),
+                  child: FittedBox(
+                    child: Text('R\$${NumberFormat("#,##0.00", "pt_BR").format(tr.amount)}'),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      tr.title,
-                      style: Theme.of(context).textTheme.titleLarge ,
-                    ),
-                    Text(
-                      DateFormat('d MMM y').format(tr.date),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
+              title: Text(
+                tr.title,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              subtitle: Text(
+                DateFormat('d MMM y').format(tr.date),
+              ),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                color: Theme.of(context).disabledColor,
+                onPressed: () => widget.onRemove(tr.id),
+              ),
             ),
           );
         },
