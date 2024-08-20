@@ -24,9 +24,9 @@ O projeto está organizado da seguinte forma:
 
 Aqui estão algumas capturas de tela do aplicativo:
 
-![Screenshot 1](expenses\assets\images\imagem_cards.png)
-![Screenshot 2](expenses\assets\images\imagem_sem_cards.png)
-![Screenshot 3](expenses\assets\icons\icone_card_app.png)
+![Screenshot 1](assets/images/imagem_cards.png)
+![Screenshot 2](assets/images/imagem_sem_cards.png)
+![Screenshot 3](assets/icons/icone_card_app.png)
 
 ## Como Executar
 
