@@ -47,7 +47,3 @@ Este projeto utiliza as seguintes dependências:
 ## Contribuindo
 
 Contribuições são bem-vindas! Se você encontrar algum problema ou tiver uma sugestão, sinta-se à vontade para abrir uma issue ou enviar um pull request.
-
-## Licença
-
-Este projeto está licenciado sob os termos da licença MIT. Consulte o arquivo [LICENSE](LICENSE) para obter mais informações.
