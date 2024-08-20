@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Adicione esta linha
+import 'package:intl/intl.dart'; 
 
 class ChartBar extends StatelessWidget {
   final String label;
@@ -16,7 +16,7 @@ class ChartBar extends StatelessWidget {
         Container(
           height: 20,
           child: FittedBox(
-            child: Text('R\$${NumberFormat("#,##0.00", "pt_BR").format(amount)}'), // Atualize esta linha
+            child: Text('R\$${NumberFormat("#,##0.00", "pt_BR").format(amount)}'), 
           ),
         ),
         SizedBox(height: 5),
