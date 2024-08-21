@@ -64,11 +64,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
+  bool _showChart = false;
 
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
       return tr.date.isAfter(DateTime.now().subtract(
-        Duration(days: 7),
+        const Duration(days: 7),
       ));
     }).toList();
   }
@@ -88,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-  _deleteTransaction(String id) {
+  void _deleteTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
     });
@@ -105,6 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     final double textScaleFactor = MediaQuery.of(context).textScaleFactor;
     final double fontSize = lerpDouble(16, 24, textScaleFactor)!;
 
@@ -117,6 +119,16 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       actions: <Widget>[
+        if (isLandscape)
+        IconButton(
+          icon: Icon(_showChart ? Icons.list : Icons.pie_chart),
+          onPressed: () => {
+            setState(() {
+              _showChart = !_showChart;
+            })
+          },
+          color: Colors.white,
+        ),
         IconButton(
           icon: const Icon(Icons.add),
           onPressed: () => _openTransactionFormModal(context),
@@ -124,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
-    final availabelHeight = MediaQuery.of(context).size.height -
+    final availableHeight = MediaQuery.of(context).size.height -
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
     return Scaffold(
@@ -134,14 +146,38 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             const SizedBox(height: 8),
-            Container(
-              height: availabelHeight * 0.3,
-              child: Chart(_recentTransactions),
-            ),
-            Container(
-              height: availabelHeight * 0.7,
-              child: TransactionList(_transactions, _deleteTransaction),
-            ),
+            // if (isLandscape)
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     Text(
+            //       'Exibir Gráfico',
+            //       style: TextStyle(
+            //         fontSize: 16,
+            //         color: Colors.grey[800],
+            //       ),
+            //     ),
+            //     Switch(
+            //       value: _showChart,
+            //       onChanged: (value) {
+            //         setState(() {
+            //           _showChart = value;
+            //         });
+            //       },
+            //       activeColor: Theme.of(context).colorScheme.primary,
+            //     ),
+            //   ],
+            // ),
+            if (_showChart || !isLandscape)
+              Container(
+                height: availableHeight * (isLandscape ? 0.7 : 0.3),
+                child: Chart(_recentTransactions),
+              ),
+            if (!_showChart || !isLandscape)      
+              Container(
+                height: availableHeight * 0.7,
+                child: TransactionList(_transactions, _deleteTransaction),
+              ),
           ],
         ),
       ),

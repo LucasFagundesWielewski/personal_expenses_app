@@ -36,34 +36,39 @@ class _TransactionListState extends State<TransactionList>
   @override
   Widget build(BuildContext context) {
     return widget.transactions.isEmpty
-        ? SizedBox(
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: Column(
-              children: <Widget>[
-                const SizedBox(height: 10),
-                Text(
-                  'Nenhuma Transação Cadastrada!',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: 40),
-                AnimatedBuilder(
-                  animation: _animation,
-                  builder: (ctx, child) {
-                    return Transform.scale(
-                      scale: _animation.value,
-                      child: child,
-                    );
-                  },
-                  child: Container(
-                    height: 200,
-                    child: Image.asset(
-                      'assets/images/waiting.png',
-                      fit: BoxFit.cover,
+        ? LayoutBuilder(
+            builder: (ctx, constraints) {
+              return Column(
+                children: <Widget>[
+                  SizedBox(
+                    height:20,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.3,
+                    child: AnimatedBuilder(
+                      animation: _animation,
+                      builder: (ctx, child) {
+                        return Transform.scale(
+                          scale: _animation.value,
+                          child: child,
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/images/waiting.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                  SizedBox(
+                    height:20,
+                  ),
+                  Text(
+                    'Nenhuma Transação Cadastrada!',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ],
+              );
+            },
           )
         : ListView.builder(
             itemCount: widget.transactions.length,
