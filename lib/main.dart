@@ -1,6 +1,8 @@
+import 'dart:ui';
 import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'models/transaction.dart';
 import 'dart:math';
 import './components/transaction_list.dart';
@@ -12,6 +14,10 @@ class ExpensesApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       home: MyHomePage(),
       theme: ThemeData(
@@ -81,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     Navigator.of(context).pop();
   }
-  
+
   _deleteTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
@@ -99,33 +105,45 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Despesas Pessoais',
-          style: TextStyle(
-            fontFamily: 'OpenSans',
-          ),
+    final double textScaleFactor = MediaQuery.of(context).textScaleFactor;
+    final double fontSize = lerpDouble(16, 24, textScaleFactor)!;
+
+    final appBar = AppBar(
+      title: Text(
+        'Despesas Pessoais',
+        style: TextStyle(
+          fontFamily: 'OpenSans',
+          fontSize: fontSize,
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () => _openTransactionFormModal(context),
-            color: Colors.white,
-          ),
-        ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          const SizedBox(height: 8),
-          Chart(
-            _recentTransactions
-          ),
-          Expanded(
-            child: TransactionList(_transactions, _deleteTransaction),
-          ),
-        ],
+      actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () => _openTransactionFormModal(context),
+          color: Colors.white,
+        ),
+      ],
+    );
+    final availabelHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+    return Scaffold(
+      appBar: appBar,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            const SizedBox(height: 8),
+            Container(
+              height: availabelHeight * 0.3,
+              child: Chart(_recentTransactions),
+            ),
+            Container(
+              height: availabelHeight * 0.7,
+              child: TransactionList(_transactions, _deleteTransaction),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),

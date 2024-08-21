@@ -4,11 +4,10 @@ import 'package:intl/intl.dart';
 import 'chart_bar.dart';
 
 class Chart extends StatelessWidget {
-
   final List<Transaction> recentTransactions;
 
   Chart(this.recentTransactions);
-  
+
   List<Map<String, Object>> get groupedTransactions {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(
@@ -17,12 +16,12 @@ class Chart extends StatelessWidget {
 
       double totalSum = 0.0;
 
-      for(var i = 0; i < recentTransactions.length; i++) {
+      for (var i = 0; i < recentTransactions.length; i++) {
         bool sameDay = recentTransactions[i].date.day == weekDay.day;
         bool sameMonth = recentTransactions[i].date.month == weekDay.month;
         bool sameYear = recentTransactions[i].date.year == weekDay.year;
 
-        if(sameDay && sameMonth && sameYear) {
+        if (sameDay && sameMonth && sameYear) {
           totalSum += recentTransactions[i].amount;
         }
       }
@@ -51,10 +50,12 @@ class Chart extends StatelessWidget {
           children: groupedTransactions.map((tr) {
             return Flexible(
               fit: FlexFit.tight,
-              child:  ChartBar(
+              child: ChartBar(
                 tr['day'].toString(),
                 tr['amount'] as double,
-                _weekTotalValue == 0 ? 0 : (tr['amount'] as double) / _weekTotalValue,
+                _weekTotalValue == 0
+                    ? 0
+                    : (tr['amount'] as double) / _weekTotalValue,
               ),
             );
           }).toList(),
