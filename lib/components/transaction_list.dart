@@ -41,7 +41,7 @@ class _TransactionListState extends State<TransactionList>
               return Column(
                 children: <Widget>[
                   SizedBox(
-                    height:20,
+                    height: 20,
                   ),
                   Container(
                     height: constraints.maxHeight * 0.3,
@@ -60,7 +60,7 @@ class _TransactionListState extends State<TransactionList>
                     ),
                   ),
                   SizedBox(
-                    height:20,
+                    height: 20,
                   ),
                   Text(
                     'Nenhuma Transação Cadastrada!',
@@ -98,11 +98,24 @@ class _TransactionListState extends State<TransactionList>
                   subtitle: Text(
                     DateFormat('d MMM y').format(tr.date),
                   ),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    color: Theme.of(context).disabledColor,
-                    onPressed: () => widget.onRemove(tr.id),
-                  ),
+                  trailing: MediaQuery.of(context).size.width > 480
+                      ? TextButton.icon(
+                          icon: const Icon(Icons.delete),
+                          label: const Text('Excluir'),
+                          onPressed: () => widget.onRemove(tr.id),
+                          style: TextButton.styleFrom(
+                            side: Theme.of(context).textTheme.titleLarge!.color ==
+                                    Colors.black
+                                ? const BorderSide(color: Colors.red)
+                                : const BorderSide(color: Colors.white
+                          ),
+                        )
+                      )
+                      : IconButton(
+                          icon: const Icon(Icons.delete),
+                          color: Theme.of(context).disabledColor,
+                          onPressed: () => widget.onRemove(tr.id),
+                        ),
                 ),
               );
             },
