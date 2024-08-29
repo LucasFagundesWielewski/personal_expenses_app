@@ -61,6 +61,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Theme.of(context).platform == TargetPlatform.iOS
+        ? CupertinoTheme.of(context)
+        : Theme.of(context);
+    WidgetsBinding.instance.addObserver(this as WidgetsBindingObserver);
+  }
+
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this as WidgetsBindingObserver);
+    super.dispose();
+  }
   final List<Transaction> _transactions = [];
   bool _showChart = false;
 
