@@ -70,15 +70,25 @@ class _TransactionListState extends State<TransactionList>
               );
             },
           )
-        : ListView.builder(
-            itemCount: widget.transactions.length,
-            itemBuilder: (ctx, index) {
-              final tr = widget.transactions[index];
-              return TransactionItem(
+        : 
+        ListView(
+        children: widget.transactions.map((tr) {
+          return TransactionItem(
+                key: ValueKey(tr.id),
                 transaction: tr,
                 onRemove: widget.onRemove,
-              );
-            },
-          );
+             );       
+        }).toList(),
+        );
+        // ListView.builder(
+        //     itemCount: widget.transactions.length,
+        //     itemBuilder: (ctx, index) {
+        //       final tr = widget.transactions[index];
+        //       return TransactionItem(
+        //         transaction: tr,
+        //         onRemove: widget.onRemove,
+        //       );
+        //     },
+        //   );
   }
 }
