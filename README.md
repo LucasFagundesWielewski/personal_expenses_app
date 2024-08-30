@@ -38,19 +38,19 @@ O aplicativo reage às mudanças no ciclo de vida da aplicação, como suspensã
 Aqui estão algumas capturas de tela do aplicativo:
 
 ### Tela com Transações Listadas
-![Screenshot 1](assets/images/tela_card_preenchido.jpeg.jpeg)
+![Screenshot 1](assets/images/tela_card_preenchido.jpeg)
 
 ### Tela Sem Transações Registradas
-![Screenshot 2](assets/images/tela_card_vazio.jpeg.jpeg)
+![Screenshot 2](assets/images/tela_card_vazio.jpeg)
 
 ### Tela Vazia em Modo Paisagem
-![Screenshot 3](assets/images/tela_deitada_vazia.jpeg.png)
+![Screenshot 3](assets/images/tela_deitada_vazia.jpeg)
 
 ### Tela com Transações em Modo Paisagem
-![Screenshot 4](assets/images/tela_deitada_cards.jpeg.png)
+![Screenshot 4](assets/images/tela_deitada_cards.jpeg)
 
 ### Tela com Gráfico de Despesas em Modo Paisagem
-![Screenshot 5](assets/images/tela_deitada_gráfico.jpeg.png)
+![Screenshot 5](assets/images/tela_deitada_gráfico.jpeg)
 
 ### Ícone do Aplicativo
 ![Screenshot 6](assets/icons/icone_card_app.png)
